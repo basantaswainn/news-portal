@@ -15,7 +15,10 @@ class EnsureAdmin
             return redirect()->route('admin.login');
         }
 
-        if (! Auth::user()?->is_admin) {
+        $user = Auth::user();
+        $isAdmin = (bool) ($user->is_admin ?? false);
+
+        if (! $isAdmin) {
             abort(403, 'You are not authorized to access the admin panel.');
         }
 
